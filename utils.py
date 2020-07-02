@@ -57,18 +57,21 @@ def list_streams(url, audio_only=False):
     yt = YouTube(url)
     print('Available streams for {} based on your input:\n'.format(yt.title))
     if audio_only:
-        for stream in yt.streams.filter(only_audio=audio_only):
+        audio_stream_list = yt.streams.filter(only_audio=audio_only).order_by('resolution').desc()
+        for stream in audio_stream_list:
             print('ITAG: {}, File Type: {}, Codec: {}, '
                   'Average Bitrate: {}, File Size: {:.2f}MB'.format(stream.itag, stream.subtype,
                                                             stream.audio_codec, stream.abr, stream.filesize * 1e-6))
+        return audio_stream_list
     else:
-        for stream in yt.streams.filter(progressive=True):
+        video_stream_list = yt.streams.filter(progressive=True).order_by('bitrate').desc()
+        for stream in video_stream_list:
             print('ITAG: {}, File Type: {}, Video Codec: {}, '
                   'Audio Codec: {}, Resolution: {}, '
                   'Framerate: {}, File Size: {:.2f}MB'.format(stream.itag, stream.subtype,
                                                         stream.video_codec, stream.audio_codec,
                                                         stream.resolution, stream.fps, stream.filesize * 1e-6))
-
+        return video_stream_list
 
 # Prompt user for ITAG ID and return the ID converted to an int.
 def get_itag():
@@ -109,11 +112,7 @@ def download_video(url, itag, audio_only, output_path=None):
     print("\nYou just downloaded",
           bcolors.OKBLUE + yt.player_response.get("videoDetails", {}).get("title") + bcolors.ENDC,
           "by", bcolors.OKBLUE + yt.player_response.get("videoDetails", {}).get("author", "unknown") + bcolors.ENDC)
-    print("The video is described as:", bcolors.OKBLUE + yt.player_response.get("videoDetails", {}).get(
-        "shortDescription") + bcolors.ENDC, "and is",
-          bcolors.OKBLUE + str(int((yt.player_response.get("videoDetails", {}).get("lengthSeconds"))) // 60),
-          "minutes and", int((yt.player_response.get("videoDetails", {}).get("lengthSeconds"))) % 60,
-          "seconds long." + bcolors.ENDC)
+
     print("This video has",
           bcolors.OKBLUE + "{:,}".format(
               int(yt.player_response.get("videoDetails", {}).get("viewCount"))) + bcolors.ENDC,

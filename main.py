@@ -6,7 +6,10 @@ def main():
     url = utils.get_url()
     output_path = utils.get_output_path()
     audio_only = utils.get_audio_only()
-    utils.list_streams(url, audio_only)
+    stream_list = utils.list_streams(url, audio_only)
+    if len(stream_list) == 0:
+        print('There are no streams available for the options that you specified.')
+        return
     itag = utils.get_itag()
     utils.download_video(url, itag, audio_only, output_path)
 
