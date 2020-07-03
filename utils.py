@@ -1,7 +1,7 @@
 from pytube import YouTube
 from pytube.exceptions import *
 import tkinter.filedialog
-import datetime
+from datetime import datetime
 import os
 
 
@@ -24,6 +24,7 @@ def get_output_path():
         browse = str.lower(input('Choose download directory (y/n)? '))
         if browse == 'y':
             root = tkinter.Tk()
+            root.attributes("-topmost", True)
             root.withdraw()
             current_dir = os.getcwd()
             output_dir = tkinter.filedialog.askdirectory(parent=root, initialdir=current_dir,
@@ -41,15 +42,15 @@ def get_output_path():
 
 # Prompt the user if they want to download an audio-only stream
 def get_audio_only():
-    response = ''
-    while response != 'y' and response != 'n':
-        response = str.lower(input('Audio only (y/n)? '))
-        if response != 'y' and response != 'n':
+    user_input = ''
+    while user_input != 'y' and user_input != 'n':
+        user_input = str.lower(input('Audio only (y/n)? '))
+        if user_input == 'y':
+            return True
+        elif user_input == 'n':
+            return False
+        else:
             print('Invalid entry.')
-    if response == 'y':
-        return True
-    else:
-        return False
 
 
 # List available streams based on users input
@@ -73,6 +74,7 @@ def list_streams(url, audio_only=False):
                                                         stream.resolution, stream.fps, stream.filesize * 1e-6))
         return video_stream_list
 
+
 # Prompt user for ITAG ID and return the ID converted to an int.
 def get_itag():
     while True:
@@ -90,7 +92,7 @@ def download_video(url, itag, audio_only, output_path=None):
     yt.register_on_progress_callback(download_progress)
 
     print('\nDownload Started - {}'.format(yt.title))
-    now = datetime.datetime.now()
+    now = datetime.now()
     dl_string = now.strftime("%m%d%Y_%H%M%S")
     dt_string = now.strftime("%m/%d/%Y %H:%M:%S")
 
@@ -102,7 +104,7 @@ def download_video(url, itag, audio_only, output_path=None):
         if audio_only:
             folder = 'audio'
         else:
-            folder = 'videos'
+            folder = 'video'
         stream.download(output_path=f'./{folder}', filename_prefix=f'{dl_string}_')
         print('\nDownload Completed - Saved to {}'.format(os.getcwd() + dir_sep + folder))
     else:
@@ -128,10 +130,10 @@ def download_progress(stream, chunk, bytes_remaining):
     suffix = 'complete'
     print_end = '\r'
     current_progress = (file_size - bytes_remaining) / file_size
-    percentage = '{0:.1f}'.format(current_progress * 100)
+    percent_complete = '{0:.1f}'.format(current_progress * 100)
     filled_length = int(bar_length * current_progress)
     bar = fill * filled_length + '-' * (bar_length - filled_length)
-    print(f'\r{prefix} |{bar}| {percentage}% {suffix}', end=print_end)
+    print(f'\r{prefix} |{bar}| {percent_complete}% {suffix}', end=print_end)
 
 
 # Class that contains color attribute constants for displayed video stats in download_video()
