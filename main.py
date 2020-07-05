@@ -46,7 +46,6 @@ def main():
 # Run main
 user_input = ''
 while user_input != 'n':
-    count = 0
     main()
     user_input = str.lower(input('\nWould you like to download another video (y/n)? '))
     if user_input != 'y' and user_input != 'n':
