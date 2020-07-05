@@ -9,7 +9,7 @@ CLI program that implements the pytube3 module to retrieve audio and video strea
   - Linux
     - `sudo apt install ffmpeg` (Debian/Ubuntu)
     - `sudo dnf install ffmpeg` (Fedora)
-- Clone repo
-- `Pipenv shell`
-- `Pipenv install`
-- `python3 main.py`
+- `git clone https://github.com/RileyMartinez/youtube_downloader.git`
+- `pipenv shell`
+- `pipenv install`
+- `pipenv run python main.py`
