@@ -15,7 +15,7 @@ def main():
             print('There are no streams available for the options that you specified.')
             return
         itag = utils.get_itag()
-        utils.download_video(url, itag, audio_only, output_path)
+        utils.download_stream(url, itag, audio_only, output_path)
         utils.print_video_statistics(url)
 
     elif video_quality == 1:
@@ -25,7 +25,7 @@ def main():
             print('There are no streams available for the options that you specified.')
             return
         itag = utils.get_itag()
-        utils.download_video(url, itag, audio_only, output_path)
+        utils.download_stream(url, itag, audio_only, output_path)
         utils.print_video_statistics(url)
 
     else:
@@ -40,8 +40,8 @@ def main():
         elif not stream_lists:
             print('There are no video or audio streams available for the options that you specified.')
             return
-        itags = utils.get_dash_itags()
-        utils.mux(url, itags[0], itags[1], output_path)
+        itags = utils.get_adaptive_itags()
+        utils.download_and_mux(url, itags[0], itags[1], output_path)
 
 # Run main
 user_input = ''

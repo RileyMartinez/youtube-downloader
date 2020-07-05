@@ -102,7 +102,7 @@ def get_itag():
             print('Invalid ITAG ID.')
 
 
-def get_dash_itags():
+def get_adaptive_itags():
     while True:
         try:
             video_itag = int(input('\nEnter an ITAG ID from the video stream list: '))
@@ -124,7 +124,7 @@ def get_stream_quality():
 
 
 # Downloads youtube video specified by itag id
-def download_video(url, itag, audio_only=False, output_path=None):
+def download_stream(url, itag, audio_only=False, output_path=None):
     yt = YouTube(url, on_progress_callback=download_progress)
     stream = yt.streams.get_by_itag(itag)
     video_title = yt.player_response.get("videoDetails", {}).get("title")
@@ -147,7 +147,7 @@ def download_video(url, itag, audio_only=False, output_path=None):
         print('\nDownload Completed - Saved to {}'.format(output_path))
 
 
-def mux(url, video_itag, audio_itag, output_path=None):
+def download_and_mux(url, video_itag, audio_itag, output_path=None):
     yt = YouTube(url, on_progress_callback=download_progress)
     video_stream = yt.streams.get_by_itag(video_itag)
     audio_stream = yt.streams.get_by_itag(audio_itag)
@@ -181,6 +181,7 @@ def mux(url, video_itag, audio_itag, output_path=None):
     os.remove(f'./temp{dir_sep}audio.{audio_type}')
 
     print_video_statistics(url)
+
 
 def print_video_statistics(url):
     yt = YouTube(url)
