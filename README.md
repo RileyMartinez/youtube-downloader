@@ -2,7 +2,7 @@
 CLI program that implements the pytube3 module to retrieve audio and video streams from YouTube, and downloads them to local storage.
 
 ## Installation Instructions
-- Install ffmpeg (if program doesn't work, may require reboot)
+- Install ffmpeg (may require reboot for installation to be recognized)
   - Windows
     - Download and extract ffmpeg: https://ffmpeg.zeranoe.com/builds/
     - Add your ffmpeg/bin location to PATH
@@ -12,6 +12,8 @@ CLI program that implements the pytube3 module to retrieve audio and video strea
   - Mac
     - `brew install ffmpeg`
 - `git clone https://github.com/RileyMartinez/youtube_downloader.git`
+- `pip install pipenv` (if pipenv is already installed, skip this step)
+- `cd ./youtube_downloader` (cd into your chosen project directory)
 - `pipenv shell`
 - `pipenv install`
 - `pipenv run python main.py`
