@@ -1,4 +1,4 @@
-# youtube_downloader
+# youtube-downloader
 CLI program that implements the pytube3 module to retrieve audio and video streams from YouTube, and downloads them to local storage.
 
 ## Installation Instructions
