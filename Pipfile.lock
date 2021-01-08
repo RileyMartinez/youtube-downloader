@@ -1,11 +1,11 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "46bf71c9cae0fca18e79e58e55cbcbbb5154af19b5fa5bb3334d5bfd15605910"
+            "sha256": "76df9225d65b3db834abb03b73a61e9ddc31d16210c330e8fd72581b50379eed"
         },
         "pipfile-spec": 6,
         "requires": {
-            "python_version": ">=3.8"
+            "python_version": "3"
         },
         "sources": [
             {
@@ -33,11 +33,11 @@
         },
         "pytube": {
             "hashes": [
-                "sha256:85cefc2b6f8b47eb94f9a9d86ad7eccd1b32b147d3e2e307f56f7dab70bc42e9",
-                "sha256:e59ec01f9fb49a60008ce1623c794731fb240aa116399582705a426f7202cb6d"
+                "sha256:a93e80476b200d2195cddb24d7707a05fcf9b12a2f50da2fd7daeceebf47452d",
+                "sha256:e3a496b049e03a9f2809c28bf562022b0efc9e926f0ec0dd982a083b5b27e344"
             ],
             "index": "pypi",
-            "version": "==10.0.0"
+            "version": "==10.4.1"
         },
         "typing-extensions": {
             "hashes": [
